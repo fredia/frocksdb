@@ -25,7 +25,8 @@ fi
 
 git grep 'using namespace' -- ':!build_tools' ':!docs' \
     ':!third-party/folly/folly/lang/Align.h' \
-    ':!third-party/gtest-1.8.1/fused-src/gtest/gtest.h'
+    ':!third-party/gtest-1.8.1/fused-src/gtest/gtest.h' \
+    ':!java/rocksjni/flink_compactionfilterjni.cc'
 if [ "$?" != "1" ]; then
   echo '^^^^ Do not use "using namespace"'
   BAD=1
