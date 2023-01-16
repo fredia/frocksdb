@@ -50,6 +50,7 @@ jobs:
               ubuntu*|jessie|stretch|buster|bullseye)
                 apt-get update -q -y
                 apt-get install -q -y git
+                apt-get install make
                 ;;
               fedora*)
                 dnf -y update
@@ -63,8 +64,8 @@ jobs:
 
           # Produce a binary artifact and place it in the mounted volume
           run: |
-            cp $(which git) "/artifacts/${artifact_name}"
-            echo "Produced artifact at /artifacts/${artifact_name}"
+            make --version
+            docker --version
             uname -a
 
       - name: Show the artifact
@@ -72,3 +73,9 @@ jobs:
         # ${PWD}/artifacts on the host.
         run: |
           ls -al "${PWD}/artifacts"
+
+#      - uses: actions/upload-artifact@v3
+#        with:
+#          name: my-artifact
+#          path: artifacts
+#          if-no-files-found: warn
