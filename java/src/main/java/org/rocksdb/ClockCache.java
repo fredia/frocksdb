@@ -53,6 +53,12 @@ public class ClockCache extends Cache {
     super(newClockCache(capacity, numShardBits, strictCapacityLimit));
   }
 
+  public ClockCache(final boolean hyper, final long capacity, final long estimatedEntryCharge) {
+      super(newHyperClockCache(capacity, estimatedEntryCharge));
+  }
+
+  private static native long newHyperClockCache(final long capacity, final long estimatedEntryCharge);
+
   private static native long newClockCache(
       final long capacity, final int numShardBits, final boolean strictCapacityLimit);
   @Override protected final native void disposeInternal(final long handle);

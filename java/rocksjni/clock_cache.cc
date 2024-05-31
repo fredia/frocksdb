@@ -30,6 +30,19 @@ jlong Java_org_rocksdb_ClockCache_newClockCache(
 
 /*
  * Class:     org_rocksdb_ClockCache
+ * Method:    newHyperClockCache
+ * Signature: (JJ)J
+ */
+jlong Java_org_rocksdb_ClockCache_newHyperClockCache(
+    JNIEnv* /*env*/, jclass /*jcls*/, jlong jcapacity, jlong estimated_entry_charge) {
+  ROCKSDB_NAMESPACE::HyperClockCacheOptions options =
+      ROCKSDB_NAMESPACE::HyperClockCacheOptions(jcapacity, estimated_entry_charge);
+  auto* sptr_clock_cache = new std::shared_ptr<ROCKSDB_NAMESPACE::Cache>(options.MakeSharedCache());
+  return GET_CPLUSPLUS_POINTER(sptr_clock_cache);
+}
+
+/*
+ * Class:     org_rocksdb_ClockCache
  * Method:    disposeInternal
  * Signature: (J)V
  */
